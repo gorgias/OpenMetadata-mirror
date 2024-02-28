@@ -1,0 +1,48 @@
+{
+  "$id": "https://open-metadata.org/schema/entity/services/connections/dashboard/periscopeConnection.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PeriscopeConnection",
+  "description": "Periscope Connection Config",
+  "type": "object",
+  "javaType": "org.openmetadata.schema.services.connections.dashboard.PeriscopeConnection",
+  "definitions": {
+    "periscopeType": {
+      "description": "Periscope service type",
+      "type": "string",
+      "enum": ["Periscope"],
+      "default": "Periscope"
+    }
+  },
+  "properties": {
+    "type": {
+      "title": "Service Type",
+      "description": "Service Type",
+      "$ref": "#/definitions/periscopeType",
+      "default": "Periscope"
+    },
+    "username": {
+      "title": "Username",
+      "description": "Username to connect to Periscope. This user should have privileges to read all the metadata in Periscope.",
+      "type": "string"
+    },
+    "password": {
+      "title": "Password",
+      "description": "Password to connect to Periscope.",
+      "type": "string",
+      "format": "password"
+    },
+    "hostPort": {
+      "expose": true,
+      "title": "Host and Port",
+      "description": "Host and Port of the Periscope instance.",
+      "type": "string",
+      "format": "uri"
+    },
+    "supportsMetadataExtraction": {
+      "title": "Supports Metadata Extraction",
+      "$ref": "../connectionBasicType.json#/definitions/supportsMetadataExtraction"
+    }
+  },
+  "additionalProperties": false,
+  "required": ["hostPort", "username"]
+}
