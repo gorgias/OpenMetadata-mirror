@@ -1,56 +1,32 @@
-#  Copyright 2021 Collate
-#  Licensed under the Apache License, Version 2.0 (the "License");
-#  you may not use this file except in compliance with the License.
-#  You may obtain a copy of the License at
-#  http://www.apache.org/licenses/LICENSE-2.0
-#  Unless required by applicable law or agreed to in writing, software
-#  distributed under the License is distributed on an "AS IS" BASIS,
-#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#  See the License for the specific language governing permissions and
-#  limitations under the License.
+from __future__ import annotations
 
-"""
-Source connection handler
-"""
+from enum import Enum
 from typing import Optional
 
-from metadata.generated.schema.entity.automations.workflow import (
-    Workflow as AutomationWorkflow,
-)
-from metadata.generated.schema.entity.services.connections.dashboard.metabaseConnection import (
-    MetabaseConnection,
-)
-from metadata.ingestion.connections.test_connections import test_connection_steps
-from metadata.ingestion.ometa.ometa_api import OpenMetadata
-from metadata.ingestion.source.dashboard.metabase.client import MetabaseClient
+from pydantic import BaseModel, Extra, Field
+
+from metadata.ingestion.models.custom_pydantic import CustomSecretStr
 
 
-def get_connection(connection: MetabaseConnection) -> MetabaseClient:
-    """
-    Create connection
-    """
-    return MetabaseClient(connection)
+class PeriscopeType(Enum):
+    Periscope = 'Periscope'
 
 
-def test_connection(
-    metadata: OpenMetadata,
-    client: MetabaseClient,
-    service_connection: MetabaseConnection,
-    automation_workflow: Optional[AutomationWorkflow] = None,
-) -> None:
-    """
-    Test connection. This can be executed either as part
-    of a metadata workflow or during an Automation Workflow
-    """
+class PeriscopeConnection(BaseModel):
+    class Config:
+        extra = Extra.forbid
 
-    def custom_executor():
-        return client.get_dashboards_list()
-
-    test_fn = {"GetDashboards": custom_executor}
-
-    test_connection_steps(
-        metadata=metadata,
-        test_fn=test_fn,
-        service_type=service_connection.type.value,
-        automation_workflow=automation_workflow,
+    type: Optional[PeriscopeType] = Field(
+        PeriscopeType.Periscope, description='Service Type', title='Service Type'
     )
+    cookies: str = Field(
+        ...,
+        description='Cookies to connect to Periscope. This user should have privileges to read all the metadata in Periscope.',
+        title='Cookies',
+    )
+    client_site_id: str = Field(
+        None,
+        description='Client Site ID. This is the unique identifier for the Periscope instance.',
+        title='Client Site ID',
+    )
+    supportsMetadataExtraction: Optional[bool] = Field(None, title='Supports Metadata Extraction')
