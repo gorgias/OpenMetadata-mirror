@@ -20,29 +20,23 @@
       "$ref": "#/definitions/periscopeType",
       "default": "Periscope"
     },
-    "username": {
-      "title": "Username",
-      "description": "Username to connect to Periscope. This user should have privileges to read all the metadata in Periscope.",
+    "cookies": {
+      "title": "Cookies",
+      "description": "Cookies to connect to Periscope. This user should have privileges to read all the metadata in Periscope.",
       "type": "string"
     },
-    "password": {
-      "title": "Password",
-      "description": "Password to connect to Periscope.",
-      "type": "string",
-      "format": "password"
-    },
-    "hostPort": {
-      "expose": true,
-      "title": "Host and Port",
-      "description": "Host and Port of the Periscope instance.",
-      "type": "string",
-      "format": "uri"
+    "client_id": {
+      "title": "Client ID",
+      "description": "Client ID",
+      "type": "string"
     },
     "supportsMetadataExtraction": {
       "title": "Supports Metadata Extraction",
-      "$ref": "../connectionBasicType.json#/definitions/supportsMetadataExtraction"
+      "description": "Supports Metadata Extraction.",
+      "type": "boolean",
+      "default": true
     }
   },
   "additionalProperties": false,
-  "required": ["hostPort", "username"]
+  "required": ["client_id", "cookies"]
 }
