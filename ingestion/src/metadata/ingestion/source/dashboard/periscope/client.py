@@ -8,9 +8,9 @@ from copy import deepcopy
 
 import requests
 
-from connector.ometa_client import REST, ClientConfig
-from connector.periscope.connection import PeriscopeConnection
-from connector.periscope.models import (
+from metadata.ingestion.source.dashboard.periscope.ometa_client import REST, ClientConfig
+from metadata.ingestion.source.dashboard.periscope.connection import PeriscopeConnection
+from metadata.ingestion.source.dashboard.periscope.models import (
     PeriscopeDashboard,
     PeriscopeDashboardList,
     PeriscopeDashboardDetails,

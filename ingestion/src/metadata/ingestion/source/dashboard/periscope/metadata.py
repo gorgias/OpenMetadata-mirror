@@ -45,8 +45,8 @@ from metadata.generated.schema.entity.services.dashboardService import Dashboard
 from metadata.generated.schema.entity.services.connections.dashboard.customDashboardConnection import (
     CustomDashboardConnection,
 )
-from connector.periscope.connection import PeriscopeConnection
-from connector.periscope.models import PeriscopeDashboard, PeriscopeChart, PeriscopeView, PeriscopeDashboardDetails
+from metadata.ingestion.source.dashboard.periscope.connection import PeriscopeConnection
+from metadata.ingestion.source.dashboard.periscope.models import PeriscopeDashboard, PeriscopeChart, PeriscopeView, PeriscopeDashboardDetails
 
 logger = ingestion_logger()
 
