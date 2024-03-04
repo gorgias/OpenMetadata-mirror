@@ -29,6 +29,9 @@ from metadata.generated.schema.entity.services.connections.dashboard.supersetCon
 from metadata.generated.schema.entity.services.connections.dashboard.tableauConnection import (
     TableauConnection,
 )
+from metadata.generated.schema.entity.services.connections.dashboard.periscopeConnection import (
+    PeriscopeConnection
+)
 from metadata.generated.schema.entity.services.connections.database import (
     customDatabaseConnection,
 )
@@ -824,6 +827,23 @@ def test_tableau():
     config: WorkflowSource = WorkflowSource.parse_obj(source)
     assert isinstance(config.serviceConnection.__root__.config, TableauConnection)
 
+def test_periscope():
+    source = {
+        "type": "periscope",
+        "serviceName": "local_periscope",
+        "serviceConnection": {
+            "config": {
+                "type": "Periscope",
+                "cookies": "jkjkjkjkj",
+                "client_site_id": "999999"
+            }
+        },
+        "sourceConfig": {
+            "config": {"dashboardFilterPattern": {}, "chartFilterPattern": {}}
+        },
+    }
+    config: WorkflowSource = WorkflowSource.parse_obj(source)
+    assert isinstance(config.serviceConnection.__root__.config, PeriscopeConnection)
 
 def test_trino():
     source = {
